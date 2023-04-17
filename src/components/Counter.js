@@ -2,27 +2,47 @@ import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Counter = () => {
+  const amountcounter = 10;
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
+  const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: 'INCREMENT', amount: 10 });
+    dispatch({ type: 'INCREMENT', amount: amountcounter });
   };
   const decrementHandler = () => {
-    dispatch({ type: 'DECREMENT' });
+    dispatch({ type: 'DECREMENT', amount: amountcounter });
   };
 
-  const toggleCounterHandler = () => {};
+  const resetCounterHandler = () => {
+    dispatch({ type: 'TOGGLE' });
+  };
+  const toggleCounterHandler = () => {
+    dispatch({ type: 'SHOW' });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
-      <div>
-        <button onClick={incrementHandler}>Increment</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
+      {show && (
+        <>
+          <div className={classes.value}>{counter}</div>
+          <div>
+            <button onClick={incrementHandler}>
+              Increment by {amountcounter}
+            </button>
+            <button onClick={decrementHandler}>
+              Decrement by {amountcounter}
+            </button>
+          </div>
+          <div>
+            <button onClick={resetCounterHandler}>Reset Counter</button>
+          </div>
+        </>
+      )}
+      <button onClick={toggleCounterHandler}>
+        {show ? 'Hide Counter' : 'Show Counter'}
+      </button>
     </main>
   );
 };
