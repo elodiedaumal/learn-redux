@@ -15,7 +15,7 @@ const Counter = () => {
   };
 
   const resetCounterHandler = () => {
-    dispatch({ type: 'TOGGLE' });
+    dispatch({ type: 'RESET' });
   };
   const toggleCounterHandler = () => {
     dispatch({ type: 'SHOW' });
